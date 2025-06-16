@@ -94,24 +94,22 @@
 
 # DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
 import os
 from pathlib import Path
 
 # Base directory
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Security key from environment variable
+# Secret key from environment variable (fallback for development only)
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'unsafe-secret-key-for-dev')
 
-# Debug mode from environment variable (default is False)
+# Debug mode from environment variable (default: False)
 DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
-# Allowed hosts
-# ALLOWED_HOSTS = ["*"]  # Replace with your Render app URL
+# Allowed hosts - use your actual Render domain
 ALLOWED_HOSTS = ['hello-django-7rbk.onrender.com', 'localhost', '127.0.0.1']
 
-# Installed apps
+# Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -119,13 +117,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'app',  # Your app name
+    'app',  # Your custom app
 ]
 
-# Middleware
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # For serving static files in production
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # For static files on Render
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -134,10 +131,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-# URL configuration
 ROOT_URLCONF = 'hello_django.urls'
 
-# Templates
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -154,10 +149,9 @@ TEMPLATES = [
     },
 ]
 
-# WSGI application
 WSGI_APPLICATION = 'hello_django.wsgi.application'
 
-# Database (using SQLite for now)
+# Database
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -189,9 +183,9 @@ USE_TZ = True
 
 # Static files
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # For collectstatic on Render
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-# Enable WhiteNoise storage (optional, for better performance)
+# WhiteNoise static file storage for production
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Default primary key field type
