@@ -108,7 +108,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'unsafe-secret-key-for-dev')
 DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
 # Allowed hosts
-ALLOWED_HOSTS = ['hello_django.onrender.com', 'localhost', '127.0.0.1']  # Replace with your Render app URL
+ALLOWED_HOSTS = ["*"]  # Replace with your Render app URL
 
 # Installed apps
 INSTALLED_APPS = [
